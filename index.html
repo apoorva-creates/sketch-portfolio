@@ -1,26 +1,531 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Apoorva's Sketches</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sketch-portfolio</title>
   <style>
-    body { font-family: sans-serif; text-align: center; background: #fdfcf9; margin: 0; padding: 20px; }
-    h1 { margin-bottom: 5px; }
-    img { max-width: 300px; margin: 10px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-    .link { margin-top: 20px; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 300;
+      display: inline;
+    }
+
+    .credit-text {
+      font-size: 1.25rem;
+      color: #e8f4fd;
+      font-weight: 400;
+      font-style: italic;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+      display: inline;
+      margin-left: 0.5rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      pointer-events: none;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-section h2 {
+      color: white;
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .cta-section p {
+      color: white;
+      font-size: 1rem;
+      line-height: 1.6;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .fiverr-link {
+      color: #1dbf73;
+      background: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .fiverr-link:hover {
+      background: #1dbf73;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(29,191,115,0.4);
+    }
+
+    .fiverr-link svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .artwork-item {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .artwork-item:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+
+    .artwork-item.hidden {
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+    }
+
+    .artwork-item img {
+      width: 100%;
+      height: auto;
+      min-height: 200px;
+      max-height: 400px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .artwork-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .artwork-info {
+      padding: 1.5rem;
+    }
+
+    .artwork-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+
+    .artwork-info p {
+      color: #7f8c8d;
+      font-style: italic;
+    }
+
+    footer {
+      background: #2c3e50;
+      color: white;
+      padding: 3rem 0 1rem 0;
+      margin-top: 3rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      padding: 0 2rem;
+      text-align: left;
+    }
+
+    .footer-column h3 {
+      color: #e8f4fd;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .footer-column p {
+      color: #bdc3c7;
+      line-height: 1.6;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-column ul li {
+      color: #bdc3c7;
+      margin-bottom: 0.5rem;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .footer-column ul li:before {
+      content: "•";
+      color: #667eea;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .footer-column a {
+      color: #e8f4fd;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-column a:hover {
+      color: #667eea;
+    }
+
+    .footer-column svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #34495e;
+    }
+
+    .footer-bottom p {
+      color: #95a5a6;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      
+      nav ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .gallery {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      main {
+        padding: 0 1rem;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: left;
+      }
+
+      .cta-section {
+        padding: 1.2rem 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .cta-section h2 {
+        font-size: 1.2rem;
+      }
+
+      .cta-section p {
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Animation for filtered items */
+    .artwork-item {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
+
 <body>
-  <h1>🖌️ Apoorva's Mini Portrait Sketches</h1>
-  <p>I create hand-drawn pencil sketches from your photos!</p>
-  <img src="im1.jpg" alt="Sample sketch 1" />
-  <img src="im2.jpg" alt="Sample sketch 2" />
-  <img src="im3.jpg" alt="Sample sketch 2" />
+  <header>
+    <h1>Art Gallery</h1><span class="credit-text">by @apoorva_makes</span>
+    <nav>
+      <ul>
+        <li><a href="#all" data-filter="all">Hand-drawn portraits and sketches</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <div class="link">
-    <p>Order on Fiverr → <a href="https://www.fiverr.com/yourusername" target="_blank">fiverr.com/yourusername</a></p>
-  </div>
+  <main>
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2>🧡 Like what you see? I'd love to bring your idea to life!</h2>
+        <p>Place your order securely on <a href="https://www.fiverr.com/apoorva_makes" target="_blank" rel="noopener noreferrer" class="fiverr-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.004 15.588a.995.995 0 0 1-.995.995H1.995A.995.995 0 0 1 1 15.588V8.412c0-.55.446-.995.995-.995h20.014c.55 0 .995.446.995.995v7.176zM9.104 11.3a.61.61 0 1 0 0-1.221.61.61 0 0 0 0 1.221zm6.007-1.428c.736 0 1.356.288 1.7.788.293.43.293 1.011 0 1.441-.344.5-.964.788-1.7.788s-1.356-.288-1.7-.788c-.293-.43-.293-1.011 0-1.441.344-.5.964-.788 1.7-.788zm-2.622 2.516h-1.245v-1.245h1.245v1.245zm-2.622 0H8.622v-1.245h1.245v1.245z"/>
+          </svg>
+          Fiverr</a>, where I handle all custom hand-drawn sketch requests with care and professionalism.</p>
+      </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+      <div class="artwork-item" data-category="sketch">
+        <img src="im1.jpg" alt="Sketch 1">
+        <div class="artwork-info">
+          <h3>Sketch 1</h3>
+          <p>Mini Portrait sketch of a --women</p>
+        </div>
+      </div>
+
+      <div class="artwork-item" data-category="sketch">
+        <img src="im2.jpg" alt="Sketch 2">
+        <div class="artwork-info">
+          <h3>Sketch 2</h3>
+          <p>Portrait sketch of a --selfie</p>
+        </div>
+      </div>
+
+      <div class="artwork-item" data-category="sketch">
+        <img src="im3.jpg" alt="Sketch 3">
+        <div class="artwork-info">
+          <h3>Sketch 3</h3>
+          <p>Sketch of a --baby</p>
+        </div>
+      </div>
+
+      <div class="artwork-item" data-category="sketch">
+        <img src="conan.jpg" alt="Sketch 4">
+        <div class="artwork-info">
+          <h3>Sketch 4</h3>
+          <p>Sketch for --fan art</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section style="text-align: center; margin: 3rem 0 2rem 0; padding: 2rem 0;">
+    <h2 style="
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff6b6b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 0.5rem;
+      font-family: 'Georgia', serif;
+    ">Have The Art You Love...</h2>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Contact</h3>
+        <p>📧 apoorvamakes@gmail.com</p>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Art Categories</h3>
+        <ul>
+          <li>Portrait sketches</li>
+          <li>Realistic drawing</li>
+          <li>Pencil/pen sketches</li>
+          <li>Illustrations</li>
+          <li>Character art</li>
+          <li>Fan art</li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Social</h3>
+        <a href="https://github.com/apoorva-creates" target="_blank" rel="noopener noreferrer">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; Copyright 2025| All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('nav a[data-filter]');
+      const artworkItems = document.querySelectorAll('.artwork-item');
+
+      // Add active class to "All" filter by default
+      document.querySelector('nav a[data-filter="all"]').classList.add('active');
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          const filterValue = this.getAttribute('data-filter');
+          
+          artworkItems.forEach(item => {
+            if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+              item.classList.remove('hidden');
+            } else {
+              item.classList.add('hidden');
+            }
+          });
+        });
+      });
+
+      // Add hover effects for better interactivity
+      artworkItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+
+      // Optional: Add lightbox functionality for images
+      artworkItems.forEach(item => {
+        const img = item.querySelector('img');
+        img.addEventListener('click', function() {
+          // Create lightbox overlay
+          const lightbox = document.createElement('div');
+          lightbox.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+          `;
+          
+          const lightboxImg = document.createElement('img');
+          lightboxImg.src = this.src;
+          lightboxImg.style.cssText = `
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+          `;
+          
+          lightbox.appendChild(lightboxImg);
+          document.body.appendChild(lightbox);
+          
+          // Close lightbox on click
+          lightbox.addEventListener('click', function() {
+            document.body.removeChild(lightbox);
+          });
+        });
+      });
+    });
+  </script>
 </body>
-</html>
 
+</html>
